@@ -32,7 +32,14 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     # CORS - pozwól na zapytania z frontendu
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": [
+                "http://lifeoverflow.packt.pl",
+                "https://lifeoverflow.packt.pl"
+            ]
+        }
+    })
     
     # Inicjalizuj bazę danych
     db.init_app(app)
