@@ -37,7 +37,9 @@ def create_app(config_class=Config):
             "origins": [
                 "http://lifeoverflow.packt.pl",
                 "https://lifeoverflow.packt.pl"
-            ]
+            ],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
         }
     })
     
