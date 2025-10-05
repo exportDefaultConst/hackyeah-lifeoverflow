@@ -12,5 +12,10 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  preview: {
+    port: 5173,
+    host: '0.0.0.0',
+    allowedHosts: ['lifeoverflow.packt.pl']
   }
 })
