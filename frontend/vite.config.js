@@ -14,7 +14,7 @@ export default defineConfig({
     }
   },
   preview: {
-    port: 5173,
+    port: 4443,
     host: '0.0.0.0',
     allowedHosts: ['lifeoverflow.packt.pl']
   }
