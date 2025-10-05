@@ -32,14 +32,21 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     # CORS - pozwól na zapytania z frontendu
+    # Uwaga: Jeśli frontend i backend są na tej samej domenie (przez nginx proxy),
+    # CORS może nie być potrzebny, ale dodajemy dla bezpieczeństwa
     CORS(app, resources={
         r"/api/*": {
             "origins": [
                 "http://lifeoverflow.packt.pl",
-                "https://lifeoverflow.packt.pl"
+                "https://lifeoverflow.packt.pl",
+                "http://localhost",
+                "http://localhost:80"
             ],
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"]
+            "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
+            "supports_credentials": True,
+            "expose_headers": ["Content-Type", "Authorization"],
+            "max_age": 3600
         }
     })
     
