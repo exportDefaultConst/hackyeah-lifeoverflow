@@ -45,7 +45,7 @@ def get_advice(session_id):
         wujek_instance = get_wujek()
         if not wujek_instance:
             return jsonify({
-                'advice': 'Wujek Dobra Rada jest chwilowo niedostępny. Skonfiguruj ANTHROPIC_API_KEY.'
+                'advice': 'Wujek Dobra Rada jest chwilowo niedostępny :('
             }), 200
         
         # Pobierz ostatnią decyzję z parametru query (opcjonalnie)

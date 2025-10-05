@@ -39,8 +39,9 @@ ZABRONIONE:
 - Obiecywanie gwarantowanych zysków
 
 STYL WYPOWIEDZI:
-- "Słuchaj kolego/koleżanko..."
-- "Mój ci rada..."
+- Używaj odpowiedniego zwrotu w zależności od płci:
+  * Dla mężczyzn: "Słuchaj kolego...", "Mój ci rada..."
+  * Dla kobiet: "Słuchaj koleżanko...", "Moja ci rada..."
 - "Pamiętaj, że..."
 - Używaj polskich przykładów i kwot w PLN
 - Bądź konkretny i praktyczny
@@ -117,6 +118,7 @@ class WujekDobraRada:
         """Tworzy prompt dla Wujka Dobrej Rady"""
         
         age = game_state.get('age', 25)
+        sex = game_state.get('sex', 'male')
         income = game_state.get('income', 0)
         savings = game_state.get('savings', 0)
         zus = game_state.get('zus_contributions', 0)
@@ -124,10 +126,15 @@ class WujekDobraRada:
         marital_status = game_state.get('marital_status', 'singiel')
         work = game_state.get('work', 'bezrobotny')
         
+        # Określ zwroty w zależności od płci
+        gender_address = "kolego" if sex == 'male' else "koleżanko"
+        gender_possessive = "Mój" if sex == 'male' else "Moja"
+        
         # Przelicz składki ZUS na przybliżoną emeryturę
-        estimated_pension = self._estimate_pension(zus, age)
+        estimated_pension = self._estimate_pension(zus, age, sex)
         
         prompt = f"""SYTUACJA GRACZA:
+- Płeć: {sex} (używaj zwrotu "{gender_address}", "{gender_possessive} ci rada")
 - Wiek: {age} lat
 - Praca: {work}
 - Miesięczny dochód: {income:.0f} PLN
@@ -160,18 +167,20 @@ class WujekDobraRada:
         
         return prompt
     
-    def _estimate_pension(self, total_contributions, current_age):
+    def _estimate_pension(self, total_contributions, current_age, sex='male'):
         """
         Prosta estymacja emerytury na podstawie składek
         
         Args:
             total_contributions: Łączne składki ZUS
             current_age: Obecny wiek
+            sex: Płeć ('male' lub 'female')
             
         Returns:
             Szacowana miesięczna emerytura
         """
-        retirement_age = 65  # Uproszczenie
+        # Wiek emerytalny zależy od płci w Polsce
+        retirement_age = 65 if sex == 'male' else 60
         years_to_retirement = max(retirement_age - current_age, 1)
         
         # Bardzo uproszczone: dzielimy przez oczekiwaną długość emerytury w miesiącach
@@ -193,18 +202,23 @@ class WujekDobraRada:
             Domyślna rada
         """
         age = game_state.get('age', 25)
+        sex = game_state.get('sex', 'male')
         savings = game_state.get('savings', 0)
         income = game_state.get('income', 0)
         
+        # Zwroty zależne od płci
+        address = "kolego" if sex == 'male' else "koleżanko"
+        possessive = "Mój" if sex == 'male' else "Moja"
+        
         if age < 30:
             if savings < 10000:
-                return "Słuchaj kolego, w Twoim wieku najważniejsze to zacząć oszczędzać. Zacznij od małych kwot - nawet 200-300 zł miesięcznie robi różnicę!"
+                return f"Słuchaj {address}, w Twoim wieku najważniejsze to zacząć oszczędzać. Zacznij od małych kwot - nawet 200-300 zł miesięcznie robi różnicę!"
             else:
                 return "Widzę, że już coś odkładasz - brawo! Teraz pomyśl o PPK w pracy, to darmowa dopłata od pracodawcy i państwa."
         elif age < 50:
             if income > 0 and savings < income * 3:
-                return "Mój ci rada - brakuje Ci poduszki finansowej. Staraj się mieć odłożone 3-6 pensji na czarną godzinę."
+                return f"{possessive} ci rada - brakuje Ci poduszki finansowej. Staraj się mieć odłożone 3-6 pensji na czarną godzinę."
             else:
-                return "Pamiętaj koleżanko, emerytura z ZUS to często tylko połowa wypłaty. Warto dodać IKE czy IKZE z ulgą podatkową!"
+                return f"Pamiętaj {address}, emerytura z ZUS to często tylko połowa wypłaty. Warto dodać IKE czy IKZE z ulgą podatkową!"
         else:
             return "W Twoim wieku bezpieczeństwo przede wszystkim. Obligacje skarbowe lub spokojne lokaty - nie czas na ryzyko!"

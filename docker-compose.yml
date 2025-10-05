@@ -18,8 +18,6 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
-    networks:
-      - app-network
 
   # Frontend - React + Nginx
   frontend:
@@ -28,16 +26,8 @@ services:
       dockerfile: Dockerfile
     container_name: life-sim-frontend
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      - "3000:80"
     restart: unless-stopped
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   backend-data:
