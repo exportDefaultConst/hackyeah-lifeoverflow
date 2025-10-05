@@ -1,5 +1,5 @@
-# Frontend Dockerfile - minimalistyczny z multi-stage build
-FROM node:20-alpine AS builder
+# Frontend Dockerfile - Node.js runtime without nginx
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -11,12 +11,8 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Production stage - serwuj z nginx
-FROM nginx:alpine
+# Wystaw port domyślnego podglądu Vite
+EXPOSE 5173
 
-# Kopiuj zbudowaną aplikację
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Uruchom serwer podglądu Vite na wszystkich interfejsach
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "5173"]
