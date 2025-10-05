@@ -32,7 +32,26 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     # CORS - pozwól na zapytania z frontendu
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    cors_origins = app.config.get("CORS_ORIGINS", "*")
+    if isinstance(cors_origins, str):
+        cors_origins = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
+
+    cors_allow_headers = app.config.get("CORS_ALLOW_HEADERS", [])
+    if isinstance(cors_allow_headers, str):
+        cors_allow_headers = [header.strip() for header in cors_allow_headers.split(",") if header.strip()]
+
+    cors_supports_credentials = app.config.get("CORS_SUPPORTS_CREDENTIALS", False)
+
+    cors_kwargs = {
+        "resources": {r"/api/*": {"origins": cors_origins}},
+        "supports_credentials": cors_supports_credentials,
+    }
+
+    if cors_allow_headers:
+        cors_kwargs["allow_headers"] = cors_allow_headers
+
+    CORS(app, **cors_kwargs)
+    logger.info("CORS skonfigurowany dla originów: %s", cors_origins)
 
     # Inicjalizuj bazę danych
     db.init_app(app)
