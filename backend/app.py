@@ -38,17 +38,10 @@ def create_app(config_class=Config):
         app,
         resources={
             r"/api/*": {
-                "origins": [
-                    "http://lifeoverflow.packt.pl",
-                    "https://lifeoverflow.packt.pl",
-                    "http://localhost",
-                    "http://localhost:80",
-                    "http://127.0.0.1:4443",  # Add this - nginx proxy origin
-                    "http://localhost:4443",  # Add this too
-                ],
+                "origins": "*",  # Allow all origins temporarily to test
                 "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
                 "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
-                "supports_credentials": True,
+                "supports_credentials": False,  # Changed to False
                 "expose_headers": ["Content-Type", "Authorization"],
                 "max_age": 3600,
             }
