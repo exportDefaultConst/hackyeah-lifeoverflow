@@ -5,6 +5,7 @@ Interaktywna gra edukacyjna symulująca życie i planowanie emerytalne w polskic
 ## 🚀 Szybki start z Docker
 
 ### Wymagania
+
 - Docker
 - Docker Compose
 - Klucz API Anthropic (dla funkcji AI)
@@ -12,23 +13,27 @@ Interaktywna gra edukacyjna symulująca życie i planowanie emerytalne w polskic
 ### Uruchomienie
 
 1. **Sklonuj repozytorium**
+
 ```bash
 git clone <repository-url>
 cd hack-bieg
 ```
 
 2. **Skonfiguruj zmienne środowiskowe**
+
 ```bash
 cp .env.example .env
 # Edytuj .env i dodaj swój ANTHROPIC_API_KEY
 ```
 
 3. **Uruchom aplikację**
+
 ```bash
 docker-compose up --build
 ```
 
 4. **Otwórz przeglądarkę**
+
 - Frontend: http://localhost
 - Backend API: http://localhost:5000/api
 
@@ -64,6 +69,7 @@ hack-bieg/
 ## 🛠️ Rozwój lokalny
 
 ### Backend
+
 ```bash
 cd backend
 python -m venv venv
@@ -73,6 +79,7 @@ python app.py
 ```
 
 ### Frontend
+
 ```bash
 cd frontend
 npm install
