@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Backend - Flask API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: life-sim-backend
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=sqlite:///game.db
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-me}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ./backend:/app
+      - backend-data:/app
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Frontend - React + Nginx
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: life-sim-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  backend-data:
