@@ -121,5 +121,5 @@ if __name__ == "__main__":
     app = create_app()
 
     # Uruchom serwer deweloperski
-    port = int(os.getenv("PORT", 5000))
+    port = int(os.getenv("PORT", 4442))
     app.run(host="0.0.0.0", port=port, debug=Config.DEBUG)

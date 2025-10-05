@@ -12,11 +12,12 @@ services:
       - DATABASE_URL=sqlite:///game.db
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-me}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PORT=4442
     volumes:
       - ./backend:/app
       - backend-data:/app
     ports:
-      - "5000:5000"
+      - "4442:4442"
     restart: unless-stopped
 
   # Frontend - React (Vite preview)

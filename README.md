@@ -35,7 +35,7 @@ docker-compose up --build
 4. **Otwórz przeglądarkę**
 
 - Frontend: http://localhost
-- Backend API: http://localhost:5000/api
+- Backend API: http://localhost:4442/api
 
 ## 📁 Struktura projektu
 
