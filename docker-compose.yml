@@ -19,5 +19,15 @@ services:
       - "5000:5000"
     restart: unless-stopped
 
+  # Frontend - React + Nginx
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: life-sim-frontend
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
 volumes:
   backend-data:
