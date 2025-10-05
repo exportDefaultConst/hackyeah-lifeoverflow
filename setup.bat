@@ -39,8 +39,8 @@ echo ======================================
 echo ✅ Aplikacja uruchomiona!
 echo ======================================
 echo.
-echo 🌐 Frontend: http://localhost
-echo 🔧 Backend API: http://localhost:4442/api
+echo 🌐 Frontend: https://localhost
+echo 🔧 Backend API: https://localhost:4442/api
 echo.
 echo 📋 Sprawdź logi:
 echo    docker-compose logs -f

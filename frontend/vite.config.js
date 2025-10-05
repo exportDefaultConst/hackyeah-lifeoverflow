@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://lifeoverflow.packt.pl',
+        target: 'https://lifeoverflow.packt.pl',
         changeOrigin: true
       }
     }

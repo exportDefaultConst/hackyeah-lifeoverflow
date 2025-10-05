@@ -25,7 +25,7 @@ class Config:
     CORS_HEADERS = 'Content-Type'
     CORS_ORIGINS = os.getenv(
         'CORS_ORIGINS',
-        'http://localhost:5173,http://127.0.0.1:5173,http://lifeoverflow.packt.pl,https://lifeoverflow.packt.pl'
+        'https://localhost:5173,https://127.0.0.1:5173,https://lifeoverflow.packt.pl,https://lifeoverflow.packt.pl'
     )
     CORS_SUPPORTS_CREDENTIALS = os.getenv('CORS_SUPPORTS_CREDENTIALS', 'true').lower() == 'true'
     CORS_ALLOW_HEADERS = os.getenv('CORS_ALLOW_HEADERS', 'Content-Type,Authorization')

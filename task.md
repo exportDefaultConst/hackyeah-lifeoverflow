@@ -56,7 +56,7 @@ Aplikacja została w pełni zaimplementowana zgodnie z wymaganiami:
 docker-compose up --build
 ```
 
-Następnie otwórz http://localhost w przeglądarce!
+Następnie otwórz https://localhost w przeglądarce!
 
 ---
 
