@@ -32,7 +32,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     # CORS - allow all origins for API endpoints
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={r"/api/*": {"origins": "http://lifeoverflow.packt.pl"}}, supports_credentials=True)
     logger.info("CORS skonfigurowany dla wszystkich originów na /api/*")
 
     # Inicjalizuj bazę danych
