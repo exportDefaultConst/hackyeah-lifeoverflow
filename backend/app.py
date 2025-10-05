@@ -32,21 +32,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     # CORS - pozwól na zapytania z frontendu
-    # Uwaga: Jeśli frontend i backend są na tej samej domenie (przez nginx proxy),
-    # CORS może nie być potrzebny, ale dodajemy dla bezpieczeństwa
-    CORS(
-        app,
-        resources={
-            r"/api/*": {
-                "origins": "*",  # Allow all origins temporarily to test
-                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-                "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
-                "supports_credentials": False,  # Changed to False
-                "expose_headers": ["Content-Type", "Authorization"],
-                "max_age": 3600,
-            }
-        },
-    )
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Inicjalizuj bazę danych
     db.init_app(app)
